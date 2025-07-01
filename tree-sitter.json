@@ -11,7 +11,7 @@
       ],
       "injection-regex": "^sticker$",
       "class-name": "TreeSitterSticker",
-      "highlights": "queries/sticker/highlights.scm"
+      "highlights": "queries/highlights.scm"
     }
   ],
   "metadata": {
