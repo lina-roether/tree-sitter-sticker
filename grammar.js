@@ -31,8 +31,8 @@ module.exports = grammar({
 
     _item: $ => choice($._lit, $.function_call, $.block),
 
-    function_call: $ => $.ident,
+    function_call: $ => field("name", $.ident),
 
-    function_def: $ => seq("fn", $._sep, $.ident, optional($._sep), $.block),
+    function_def: $ => seq("fn", $._sep, field("name", $.ident), optional($._sep), field("body", $.block)),
   }
 });

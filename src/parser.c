@@ -13,10 +13,10 @@
 #define ALIAS_COUNT 0
 #define TOKEN_COUNT 9
 #define EXTERNAL_TOKEN_COUNT 0
-#define FIELD_COUNT 0
+#define FIELD_COUNT 2
 #define MAX_ALIAS_SEQUENCE_LENGTH 6
 #define MAX_RESERVED_WORD_SET_SIZE 0
-#define PRODUCTION_ID_COUNT 1
+#define PRODUCTION_ID_COUNT 4
 #define SUPERTYPE_COUNT 0
 
 enum ts_symbol_identifiers {
@@ -161,6 +161,34 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
     .visible = false,
     .named = false,
   },
+};
+
+enum ts_field_identifiers {
+  field_body = 1,
+  field_name = 2,
+};
+
+static const char * const ts_field_names[] = {
+  [0] = NULL,
+  [field_body] = "body",
+  [field_name] = "name",
+};
+
+static const TSMapSlice ts_field_map_slices[PRODUCTION_ID_COUNT] = {
+  [1] = {.index = 0, .length = 2},
+  [2] = {.index = 2, .length = 2},
+  [3] = {.index = 4, .length = 1},
+};
+
+static const TSFieldMapEntry ts_field_map_entries[] = {
+  [0] =
+    {field_body, 3},
+    {field_name, 2},
+  [2] =
+    {field_body, 4},
+    {field_name, 2},
+  [4] =
+    {field_name, 0},
 };
 
 static const TSSymbol ts_alias_sequences[PRODUCTION_ID_COUNT][MAX_ALIAS_SEQUENCE_LENGTH] = {
@@ -713,8 +741,8 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [53] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_block, 4, 0, 0),
   [55] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_block, 3, 0, 0),
   [57] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_source_file, 2, 0, 0),
-  [59] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_function_def, 4, 0, 0),
-  [61] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_function_def, 5, 0, 0),
+  [59] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_function_def, 4, 0, 1),
+  [61] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_function_def, 5, 0, 2),
   [63] = {.entry = {.count = 1, .reusable = true}}, SHIFT(23),
   [65] = {.entry = {.count = 1, .reusable = true}}, SHIFT(34),
   [67] = {.entry = {.count = 1, .reusable = true}}, SHIFT(32),
@@ -728,7 +756,7 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [84] = {.entry = {.count = 2, .reusable = true}}, REDUCE(aux_sym_lit_str_repeat1, 2, 0, 0), SHIFT_REPEAT(27),
   [87] = {.entry = {.count = 1, .reusable = true}}, REDUCE(aux_sym_lit_str_repeat1, 2, 0, 0),
   [89] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_lit_str, 3, 0, 0),
-  [91] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_function_call, 1, 0, 0),
+  [91] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_function_call, 1, 0, 3),
   [93] = {.entry = {.count = 1, .reusable = true}}, REDUCE(sym_lit_str, 2, 0, 0),
   [95] = {.entry = {.count = 1, .reusable = true}},  ACCEPT_INPUT(),
   [97] = {.entry = {.count = 1, .reusable = true}}, SHIFT(38),
@@ -764,6 +792,9 @@ TS_PUBLIC const TSLanguage *tree_sitter_sticker(void) {
     .small_parse_table_map = ts_small_parse_table_map,
     .parse_actions = ts_parse_actions,
     .symbol_names = ts_symbol_names,
+    .field_names = ts_field_names,
+    .field_map_slices = ts_field_map_slices,
+    .field_map_entries = ts_field_map_entries,
     .symbol_metadata = ts_symbol_metadata,
     .public_symbol_map = ts_symbol_map,
     .alias_map = ts_non_terminal_alias_map,
