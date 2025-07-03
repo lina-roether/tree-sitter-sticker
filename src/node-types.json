@@ -40,7 +40,7 @@
     "fields": {
       "name": {
         "multiple": false,
-        "required": true,
+        "required": false,
         "types": [
           {
             "type": "ident",
@@ -48,6 +48,20 @@
           }
         ]
       }
+    },
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "keyword_function",
+          "named": true
+        },
+        {
+          "type": "operator_function",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -91,7 +105,17 @@
     }
   },
   {
+    "type": "keyword_function",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "lit_str",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "operator_function",
     "named": true,
     "fields": {}
   },
@@ -120,12 +144,64 @@
     }
   },
   {
+    "type": "!",
+    "named": false
+  },
+  {
+    "type": "!=",
+    "named": false
+  },
+  {
     "type": "\"",
+    "named": false
+  },
+  {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
+    "type": "-",
+    "named": false
+  },
+  {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": "<=",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": ">=",
+    "named": false
+  },
+  {
+    "type": "^",
     "named": false
   },
   {
     "type": "block_comment",
     "named": true
+  },
+  {
+    "type": "break",
+    "named": false
   },
   {
     "type": "fn",
@@ -136,12 +212,24 @@
     "named": true
   },
   {
+    "type": "if",
+    "named": false
+  },
+  {
+    "type": "if_else",
+    "named": false
+  },
+  {
     "type": "line_comment",
     "named": true
   },
   {
     "type": "lit_int",
     "named": true
+  },
+  {
+    "type": "while",
+    "named": false
   },
   {
     "type": "{",
