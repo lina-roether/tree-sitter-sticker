@@ -15,7 +15,13 @@ module.exports = grammar({
   rules: {
     source_file: $ => seq(repeat(seq(optional($._sep), $.function_def)), optional($._sep)),
 
-    _sep: $ => new RustRegex("\\p{White_Space}+"),
+    line_comment: $ => new RustRegex("//[^\n]*"),
+
+    block_comment: $ => new RustRegex("(?s)/\\*.*\\*/"),
+
+    _whitespace: $ => new RustRegex("\\p{White_Space}+"),
+
+    _sep: $ => prec(-1, repeat1(choice($._whitespace, $.block_comment, $.line_comment))),
 
     _char: $ => new RustRegex("\\\\.|[^\"]"),
 

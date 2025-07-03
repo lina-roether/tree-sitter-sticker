@@ -43,9 +43,41 @@
         }
       ]
     },
-    "_sep": {
+    "line_comment": {
+      "type": "PATTERN",
+      "value": "//[^\n]*"
+    },
+    "block_comment": {
+      "type": "PATTERN",
+      "value": "(?s)/\\*.*\\*/"
+    },
+    "_whitespace": {
       "type": "PATTERN",
       "value": "\\p{White_Space}+"
+    },
+    "_sep": {
+      "type": "PREC",
+      "value": -1,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_whitespace"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "block_comment"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "line_comment"
+            }
+          ]
+        }
+      }
     },
     "_char": {
       "type": "PATTERN",
