@@ -39,7 +39,7 @@ module.exports = grammar({
 
     operator_function: $ => choice("+", "-", "*", "/", "=", "!", "!=", "<", "<=", ">", ">=", "^"),
 
-    keyword_function: $ => choice("if", "if_else", "while", "break"),
+    keyword_function: $ => choice("if", "if_else", "while"),
 
     function_call: $ => choice(field("name", $.ident), $.operator_function, $.keyword_function),
 
